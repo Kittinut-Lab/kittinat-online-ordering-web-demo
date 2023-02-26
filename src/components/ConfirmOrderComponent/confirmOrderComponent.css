@@ -1,0 +1,64 @@
+.confirm-order-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.confirm-order-page img {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.confirm-order-page .product-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.confirm-order-page .product-details h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.confirm-order-page .product-details p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.confirm-order-page form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.confirm-order-page label {
+  font-size: 18px;
+}
+
+.confirm-order-page input[type="text"],
+.confirm-order-page input[type="email"],
+.confirm-order-page select {
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.confirm-order-page button {
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.confirm-order-page h3 {
+  font-size: 24px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}

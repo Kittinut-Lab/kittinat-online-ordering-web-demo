@@ -1,0 +1,21 @@
+.order-success-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  font-size: 24px;
+}
+
+.order-success-page h2 {
+  margin-bottom: 20px;
+}
+
+.order-success-page button {
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
