@@ -2,23 +2,50 @@ import { useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import HeaderComponent from "../headerComponent/headerComponent";
+import { useSelector } from "react-redux";
+import ApiCenter from "../../services/apiCenter.service";
+
 import "./confirmOrderComponent.css";
 
 function ConfirmOrderPage({ location }) {
   const history = useHistory();
   const selectedProduct = location.state?.selectedProduct;
+  const customerData = useSelector((state) => state.customerData);
 
   const [formData, setFormData] = useState({
+    customerId: customerData.id,
+    productId: selectedProduct.id,
+    productName: selectedProduct.name,
+    price: selectedProduct.price,
     name: "",
     email: "",
     address: "",
     quantity: 1,
   });
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log("Order form submitted:", formData);
-    history.push("/orderSuccess");
+
+    try {
+      const response = await ApiCenter.confirmOrder(
+        formData.customerId,
+        formData.productId,
+        formData.quantity,
+        formData.price,
+        formData.name
+      );
+      // * handle successful login
+      if (response.code === "BR-XX-XX00") {
+        // * Navigate to the main page on successful login
+        return history.push("/orderSuccess");
+      } else {
+        console.log(`${response.msg}`);
+      }
+    } catch (error) {
+      // handle error logging in
+      console.log(`error : ${error.message}`);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -98,7 +125,11 @@ function ConfirmOrderPage({ location }) {
               </Form.Control>
             </Form.Group>
 
-            <Button variant="danger" onClick={() => history.goBack()} className="mr-3">
+            <Button
+              variant="danger"
+              onClick={() => history.goBack()}
+              className="mr-3"
+            >
               Cancel Order
             </Button>
 

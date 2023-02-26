@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import ApiCenter from "../../services/apiCenter.service";
-import HeaderComponent from "../headerComponent/headerComponent";
 
 import "./loginComponent.css";
 
@@ -14,6 +13,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory(); // Get the history object from react-router-dom
+  const dispatch = useDispatch();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -32,13 +32,18 @@ function LoginPage() {
       const response = await ApiCenter.login(username, password);
       // * handle successful login
       if (response.code === "BR-XX-XX00") {
+
+        // * Save customer data to redux.
+        dispatch({
+          type: "SAVE_CUSTOMER_DATA",
+          payload: { id: response.customerId, name: response.customerName },
+        });
+
         // * Navigate to the main page on successful login
         return history.push("/productOrder");
-      }
-       else {
+      } else {
         setError(`${response.msg}`);
       }
-
     } catch (error) {
       // handle error logging in
       setError(`error : ${error.message}`);
